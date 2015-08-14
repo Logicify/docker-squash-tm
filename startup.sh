@@ -97,7 +97,7 @@ echo  "done";
 echo "$0 : starting Felix... ";
 
 export _JAVA_OPTIONS="-Ddb.driver=${DB_DRIVER} -Ddb.url=${DB_URL} -Ddb.username=${DB_USERNAME} -Ddb.password=${DB_PASSWORD} -Ddb.dialect=${DB_DIALECT} -Duser.language=en"
-DAEMON_ARGS="${JAVA_ARGS} -Dbundles.dir=${BUNDLES_DIR} -Dcache.dir=${CACHE_DIR} -Dconf.dir=${CONF_DIR} -Dlog.dir=${LOG_DIR} -Dplugins.dir=${PLUGINS_DIR} -Djetty.logs=${LOG_DIR} -Dbundles.configuration.location=${CONF_DIR} -Dfelix.config.properties=file:${CONF_DIR}/felix.config.properties -Dfelix.system.properties=file:${CONF_DIR}/felix.system.properties -Djetty.port=${HTTP_PORT} -Djetty.home=${JETTY_HOME} -Dlucene.dir=${LUCENE_DIR} -Djava.io.tmpdir=${TMP_DIR} -Dlog4j.configuration=file:./conf/log4j.properties -jar ${JAR_NAME}"
+DAEMON_ARGS="${JAVA_ARGS} -Dbundles.dir=${BUNDLES_DIR} -Dcache.dir=${CACHE_DIR} -Dconf.dir=${CONF_DIR} -Dlog.dir=${LOG_DIR} -Dplugins.dir=${PLUGINS_DIR} -Djetty.logs=${LOG_DIR} -Dbundles.configuration.location=${CONF_DIR} -Dfelix.config.properties=file:${CONF_DIR}/felix.config.properties -Dfelix.system.properties=file:${CONF_DIR}/felix.system.properties -Djetty.port=${HTTP_PORT} -Djetty.home=${JETTY_HOME} -Dlucene.dir=${LUCENE_DIR} -Dgosh.args=--noi -Djava.io.tmpdir=${TMP_DIR} -Dlog4j.configuration=file:./conf/log4j.properties -jar ${JAR_NAME}"
 
 find ${TMP_DIR} -delete > /dev/null 2>&1
 

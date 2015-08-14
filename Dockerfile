@@ -1,6 +1,9 @@
 FROM logicify/centos7
 MAINTAINER Dmitry Berezovsky <dmitry.berezovsky@logicify.com>
 
+RUN yum -y update \
+    && yum -y install postgresql
+
 # java7
 RUN cd /opt && \
 (curl -L -k -b "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz | gunzip -c | tar x) \
