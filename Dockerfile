@@ -1,8 +1,7 @@
 FROM logicify/centos7
 MAINTAINER Dmitry Berezovsky <dmitry.berezovsky@logicify.com>
 
-RUN yum -y update \
-    && yum -y install postgresql
+RUN yum -y install postgresql
 
 # java7
 RUN cd /opt && \
