@@ -15,7 +15,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 
 USER app
 RUN cd /srv  \
-  && (curl -L http://www.squashtest.org/telechargements/send/13-version-stable/190-sqaushtm-1120-targz | gunzip -c | tar x)
+  && (curl -L http://www.squashtest.org/downloads/send/13-version-stable/199-sqaushtm-1122-targz-2?lang=en | gunzip -c | tar x)
 
 COPY startup.sh /srv/squash-tm/bin/startup.sh
 COPY conf /srv/squash-tm/bin/conf
