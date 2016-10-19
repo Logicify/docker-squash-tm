@@ -35,7 +35,7 @@ docker run --rm -it logicify/squash-tm /bin/bash
 and issue the following:
 
 ```
-psql -h <DBHOST HERE> --user $DB_USER $DB_NAME < ../database-scripts/postgresql-full-install-version-1.12.0.RELEASE.sql
+psql -h <DBHOST HERE> --user $DB_USER $DB_NAME < ../database-scripts/postgresql-full-install-version-1.14.0.RELEASE.sql
 ```
 
 ## Docker compose example
