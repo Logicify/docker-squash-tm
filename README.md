@@ -4,11 +4,13 @@
 
 You may whant to set the following environment variables:
 
+```
 DB_URL: jdbc:postgresql://DB-HOST:5432/DB-NAME
 DB_USERNAME: user-name
 DB_PASSWORD: your-password
 DB_DIALECT: org.hibernate.dialect.PostgreSQLDialect
 DB_DRIVER: org.postgresql.Driver
+```
 
 Also there are a few locations you may whant to mount as volumes:
 
