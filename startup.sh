@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 #
 #     This file is part of the Squashtest platform.
 #     Copyright (C) 2010 - 2012 Henix, henix.fr
@@ -28,27 +28,25 @@
 
 
 # Default variables
-JAR_NAME="org.apache.felix.main-4.2.1.jar" # Java main library
+JAR_NAME="squash-tm.war"                   # Java main library
 HTTP_PORT=8080                             # Port for HTTP connector (default 8080; disable with -1)
 # Directory variables
-TMP_DIR=../tmp                             # Jetty tmp and work directory
+TMP_DIR=../tmp                             # Tmp and work directory
 BUNDLES_DIR=../bundles                     # Bundles directory
-CACHE_DIR=..                               # Cache directory
 CONF_DIR=../conf                           # Configurations directory
 LOG_DIR=../logs                            # Log directory
-JETTY_HOME=../jettyhome                    # Jetty home directory
+TOMCAT_HOME=../tomcat-home                 # Tomcat home directory
 LUCENE_DIR=../luceneindexes                # Lucene indexes directory
 PLUGINS_DIR=../plugins                     # Plugins directory
 # DataBase parameters
-DB_URL=${DB_URL:-"jdbc:h2:../data/squash-tm"}           # DataBase URL
-DB_DRIVER=${DB_DRIVER:-"org.h2.Driver"}                    # DataBase driver
-DB_USERNAME=${DB_USERNAME:-"sa"}                             # DataBase username
-DB_PASSWORD=${DB_PASSWORD:-"sa"}                             # DataBase password
-DB_DIALECT=${DB_DIALECT:-"org.hibernate.dialect.H2Dialect"} # DataBase dialect
+DB_TYPE=h2                                 # DAtabase type, one of h2, mysql, postgresql
+DB_URL=jdbc:h2:../data/squash-tm           # DataBase URL
+DB_USERNAME=sa                             # DataBase username
+DB_PASSWORD=sa                             # DataBase password
 ## Do not configure a third digit here
-REQUIRED_VERSION=1.6
+REQUIRED_VERSION=1.7
 # Extra Java args
-JAVA_ARGS=${JAVA_ARGS:-"-Xms128m -Xmx512m -XX:MaxPermSize=192m -server"}
+JAVA_ARGS="-Xms128m -Xmx512m -XX:MaxPermSize=192m -server"
 
 
 # Tests if java exists
@@ -94,12 +92,11 @@ echo  "done";
 
 
 # Let's go !
-echo "$0 : starting Felix... ";
+echo "$0 : starting Squash TM... ";
 
-export _JAVA_OPTIONS="-Ddb.driver=${DB_DRIVER} -Ddb.url=${DB_URL} -Ddb.username=${DB_USERNAME} -Ddb.password=${DB_PASSWORD} -Ddb.dialect=${DB_DIALECT} -Duser.language=en"
-DAEMON_ARGS="${JAVA_ARGS} -Dbundles.dir=${BUNDLES_DIR} -Dcache.dir=${CACHE_DIR} -Dconf.dir=${CONF_DIR} -Dlog.dir=${LOG_DIR} -Dplugins.dir=${PLUGINS_DIR} -Djetty.logs=${LOG_DIR} -Dbundles.configuration.location=${CONF_DIR} -Dfelix.config.properties=file:${CONF_DIR}/felix.config.properties -Dfelix.system.properties=file:${CONF_DIR}/felix.system.properties -Djetty.port=${HTTP_PORT} -Djetty.home=${JETTY_HOME} -Dlucene.dir=${LUCENE_DIR} -Dgosh.args=--noi -Djava.io.tmpdir=${TMP_DIR} -Dlog4j.configuration=file:./conf/log4j.properties -jar ${JAR_NAME}"
-
-find ${TMP_DIR} -delete > /dev/null 2>&1
+export _JAVA_OPTIONS="-Dspring.datasource.url=${DB_URL} -Dspring.datasource.username=${DB_USERNAME} -Dspring.datasource.password=${DB_PASSWORD} -Duser.language=en"
+DAEMON_ARGS="${JAVA_ARGS} -Djava.io.tmpdir=${TMP_DIR} -Dlogging.dir=${LOG_DIR} -jar ${BUNDLES_DIR}/${JAR_NAME} --spring.profiles.active=${DB_TYPE} --spring.config.location=${CONF_DIR}/squash.tm.cfg.properties --logging.config=${CONF_DIR}/log4j.properties --squash.path.bundles-path=${BUNDLES_DIR} --squash.path.plugins-path=${PLUGINS_DIR} --hibernate.search.default.indexBase=${LUCENE_DIR} --server.port=${HTTP_PORT} --server.tomcat.basedir=${TOMCAT_HOME} "
 
 exec java ${DAEMON_ARGS}
+
 
